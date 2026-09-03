@@ -1,34 +1,36 @@
-"use client"
+// import Link from "next/link"
+// import { getNotes } from "../services/notes"
 
-import { useState } from "react"
-import Link from "next/link"
+// const Notes = async ({
+//   searchParams,
+// }: {
+//   searchParams: Promise<{ important?: string }>
+// }) => {
+//   const { important } = await searchParams
+//   const showImportant = important === "true"
+//   const allNotes = getNotes()
+//   const notes = showImportant
+//     ? allNotes.filter((note) => note.important)
+//     : allNotes
 
-type Note = {
-    id : number
-    content : string
-    important : boolean
-}
-const NoteList = ({notes} : {notes : Note[]}) => {
-    const [showImportant, setShowImportant] = useState(false)
+//   return (
+//     <div>
+//       <h2>Notes</h2>
+//       <div>
+//         <Link href={showImportant ? "/notes" : "/notes?important=true"}>
+//           {showImportant ? "show all" : "show important only"}
+//         </Link>
+//       </div>
+//       <ul>
+//         {notes.map((note) => (
+//           <li key={note.id}>
+//             <Link href={`/notes/${note.id}`}>{note.content}</Link>
+//             {note.important && <strong> (important)</strong>}
+//           </li>
+//         ))}
+//       </ul>
+//     </div>
+//   )
+// }
 
-    const notesToShow = showImportant ? notes.filter(note => note.important) : notes
-    return (
-        <>
-            <div>
-                <button onClick={()=> setShowImportant(!showImportant)}>{showImportant ? 'Show not important' : 'Show Important'}</button>
-            </div>
-            <div>
-                {
-                
-                    notesToShow.map(note => (
-                        <li key={note.id}>
-                                <Link href={`/notes/${note.id}`}>{note.content}</Link>
-                                {note.important && <strong>(important)</strong>}
-                        </li>
-                    ))
-                }
-            </div>
-        </>
-    )
-}
-export default NoteList
+// export default Notes
