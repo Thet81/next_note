@@ -29,10 +29,11 @@ const Notes = async ({
   const { important } = await searchParams
   
   const showImportant = important === "true"
-  const allNotes = getNotes()
-  const notes = showImportant
-    ? allNotes.filter((note) => note.important)
-    : allNotes
+  // const allNotes = await getNotes()
+  // const notes = showImportant
+  //   ? allNotes.filter((note) => note.important)
+  //   : allNotes
+  const notes = await getNotes(showImportant)
 
   return (
     <div>
