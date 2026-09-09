@@ -1,13 +1,7 @@
 
-// const notes = [
-//     {id : 1, content : 'next.js utilizes React Server Components', important : true},
-//     {id : 2, content : 'next.js is built on top of React', important : true},
-//     {id : 3, content : 'next.js supports both static and dynamic rendering', important : false}
-// ]
-
 import {notes} from '../../db/schema'
 import {db} from '../../db'
-import { eq } from 'drizzle-orm'
+import { eq, sql } from 'drizzle-orm'
 
 
 export const getNotes = async (importantOnly : boolean)=> {
@@ -20,7 +14,11 @@ export const getNotes = async (importantOnly : boolean)=> {
 }
 
 export const addNote = async (content : string, important : boolean) => {
-    await db.insert(notes).values({content, important})
+    // await db.insert(notes).values({content, important})
+    const user = await db.query.users.findFirst({
+        orderBy : sql`RANDOM()`,
+    })
+    await db.insert(notes).values({content, important, userId : user.id})
 }
 
 export const getNoteById = async (id : number) => {

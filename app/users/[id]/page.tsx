@@ -1,19 +1,20 @@
 import { notFound } from "next/navigation"
-import { getNotesByUserId, getUserById } from "@/app/services/users"
+import { getNotesByUserId, getUserById, getUserWithNotes } from "@/app/services/users"
 import Link from "next/link"
+import { Idiqlat } from "next/font/google"
 
 type Param = {
     params : Promise<{id:string}>
 }
 const UserPage = async({params} : Param) => {
     const {id} = await params
-    const user = await getUserById(Number(id))
+    const user = await getUserWithNotes(Number(id))
     
     if(!user) {
         notFound()
     }
 
-    const notes = await getNotesByUserId(Number(id))
+    // const notes = await getNotesByUserId(Number(id))
 
     return (
         <div>
@@ -22,7 +23,7 @@ const UserPage = async({params} : Param) => {
             <h3>Notes</h3>
             <ul>
                 {
-                    notes.map(note => (
+                    user.notes.map(note => (
                         <li key={note.id}>
                             <Link href={`/notes/${note.id}`}>{note.content}</Link>
                             {note.important && <strong>(important)</strong>}
