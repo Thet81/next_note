@@ -20,6 +20,13 @@ const Notes = async ({
   //   : allNotes
   const notes = await getNotes(showImportant)
 
+  if(!notes || notes.length <= 0) {
+    return (
+      <div>
+        <p>No notes found!</p>
+      </div>
+    )
+  }
   return (
     <div>
       <h2>Notes</h2>

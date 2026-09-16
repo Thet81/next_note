@@ -5,12 +5,16 @@ import { eq, sql } from 'drizzle-orm'
 
 
 export const getNotes = async (importantOnly : boolean)=> {
-    if(importantOnly){
+   try{
+     if(importantOnly){
         return db.query.notes.findMany({
             where : eq(notes.important, true)
         })
     }
     return db.query.notes.findMany()
+   }catch(error){
+    console.log(error)
+   }
 }
 
 export const addNote = async (content : string, important : boolean) => {
